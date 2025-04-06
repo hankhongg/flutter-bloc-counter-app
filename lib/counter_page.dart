@@ -1,3 +1,4 @@
+import "package:bloc_counter_app/bloc/counter_bloc.dart";
 import "package:bloc_counter_app/cubit/counter_cubit.dart";
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
@@ -8,6 +9,8 @@ class CounterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final counterCubit = BlocProvider.of<CounterCubit>(context);
+    final counterBloc = BlocProvider.of<CounterBloc>(context);
+
     return Scaffold(
       body: Center(
         child: GestureDetector(
@@ -30,12 +33,12 @@ class CounterPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
-            onPressed: counterCubit.increment,
+            onPressed: () => counterBloc.add(CounterIncremented()),  //counterCubit.increment,
             tooltip: 'Increment',
             child: const Icon(Icons.add),
           ),
           FloatingActionButton(
-            onPressed: counterCubit.decrement,
+            onPressed: () => counterBloc.add(CounterDecremented()), // counterCubit.decrement,
             tooltip: 'Decrement',
             child: const Icon(Icons.remove),
           )
